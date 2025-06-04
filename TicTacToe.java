@@ -1,33 +1,49 @@
+import java.util.Arrays;
 import java.util.Scanner;
-
+import java.util.HashMap;
 
 class TicTacToe {
     private String [][] ticTacToe;
+    private HashMap<String, int[]> positionsMap;
 
-    public TicTacToe(String [][] ticTacToe) {
-        this.ticTacToe = new String[3][3];
+    public TicTacToe() {
+        ticTacToe = new String[3][3];
+    
+        initializeBoard();
+    }
+
+    private void initializeBoard() {
+        int count = 1;
 
         for (int i=0; i<3; i++) {
             for (int j=0; j<3; j++) {
-                this.ticTacToe[i][j] = ticTacToe[i][j];
+                ticTacToe[i][j] = Integer.toString(count);
+                count++;
+            }
+        }
+
+        initializeHashMap();
+    }
+
+    private void initializeHashMap() {
+        positionsMap = new HashMap<>();
+        int count = 1;
+
+        for (int i=0; i<3; i++) {
+            for (int j=0; j<3; j++) {
+                positionsMap.put(Integer.toString(count), new int[] {i, j});
+                count++;
             }
         }
     }
 
-    public void printTable () {
-
-      for(int i = 0; i < 3; i++) {
-        for(int j = 0; j < 3; j++) {
-           if(j != 2) {
-            System.out.printf("%c |" , ticTacToe[i][j]);
-           } 
-           else if(j == 2) {
-             System.out.printf("%c \n", ticTacToe[i][j]);
-           }
-        }
-        System.out.print("--------------------");
-        System.out.print("\n");
-      }
+    public void testPrint() {
+        System.out.println(Arrays.toString(positionsMap.get("2")));
     }
 
+    public static void main(String[] args) {
+        TicTacToe tic = new TicTacToe();
+
+        tic.testPrint();
+    }
 }
