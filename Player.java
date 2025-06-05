@@ -2,11 +2,13 @@ import java.util.Scanner;
 
 class Player {
   protected String symbol;
+  public boolean isTurn;
 
   private static final Scanner scanner = new Scanner(System.in);
 
-  public Player(String symbol) {
+  public Player(String symbol, boolean isTurn) {
     this.symbol = symbol;
+    this.isTurn = isTurn;
   }
 
   public static String chooseSymbol() {

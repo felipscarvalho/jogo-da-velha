@@ -1,10 +1,10 @@
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.HashMap;
+import java.util.Random;
 
-class TicTacToe {
+public class TicTacToe {
 
-  protected int difficulty;
   protected int playerCount;
   protected Player player1;
   protected Player player2;
@@ -15,6 +15,7 @@ class TicTacToe {
     ticTacToe = new String[3][3];
 
     initializeBoard();
+    setupPlayers();
   }
 
   private void initializeBoard() {
@@ -56,18 +57,47 @@ class TicTacToe {
     }
   }
 
+  public String[][] getBoard() {
+    return ticTacToe;
+  }
+
   public void setupPlayers() {
 
-    playerCount = Player.chooseNumberOfPlayers();
+    Random random = new Random();
+    this.playerCount = Player.chooseNumberOfPlayers();
+    String difficulty = null;
 
-    player1 = new Player(Player.chooseSymbol());
+    this.player1 = new Player(Player.chooseSymbol(), random.nextBoolean());
 
     String symbol2 = player1.symbol.equals("X") ? "O" : "X";
 
-    player2 = new Player(symbol2);
+    if (playerCount == 1) {
+      difficulty = Player.chooseDifficulty();
+      this.player2 = new AiPlayer(symbol2, !(player1.isTurn), difficulty);
+    } else if (playerCount == 2) {
+      this.player2 = new Player(symbol2, !(player1.isTurn));
+    }
 
     System.out.println("Player 1 is the symbol " + player1.symbol);
     System.out.println("Player 2 is the symbol " + player2.symbol);
+  }
+
+  public boolean makeMove(String position, String playerSymbol) {
+
+    if (!positionsMap.containsKey(position))
+      return false;
+
+    int coords[] = positionsMap.get(position);
+    int row = coords[0];
+    int column = coords[1];
+
+    if (!ticTacToe[row][column].equals("X") && !ticTacToe[row][column].equals("O")) {
+      ticTacToe[row][column] = playerSymbol;
+      return true;
+    }
+
+    return false;
+
   }
 
   public static void main(String[] args) {
