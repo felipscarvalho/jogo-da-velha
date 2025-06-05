@@ -1,5 +1,6 @@
 class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello");
-    }
+  public static void main(String[] args) {
+    TicTacToe game = new TicTacToe();
+    game.loopGame();
+  }
 }

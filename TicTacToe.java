@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Random;
@@ -52,7 +51,7 @@ public class TicTacToe {
           System.out.printf("%s \n", ticTacToe[i][j]);
         }
       }
-      System.out.print("--------------------");
+      System.out.print("---------");
       System.out.print("\n");
     }
   }
@@ -101,7 +100,49 @@ public class TicTacToe {
   }
 
   public void loopGame() {
+    Scanner scanner = new Scanner(System.in);
+    String chosenPosition;
+    boolean isValid = false;
 
+    while (gameSituation() == null) {
+      printTable();
+      if (this.playerCount == 2) {
+        if (player1.isTurn) {
+          while (!isValid) {
+            System.out.println("Pick a valid position (1-9)");
+            chosenPosition = Integer.toString(scanner.nextInt());
+            isValid = makeMove(chosenPosition, player1.symbol);
+          }
+          player1.isTurn = false;
+          player2.isTurn = true;
+        } else {
+          while (!isValid) {
+            System.out.println("Pick a valid position (1-9)");
+            chosenPosition = Integer.toString(scanner.nextInt());
+            isValid = makeMove(chosenPosition, player2.symbol);
+          }
+          player1.isTurn = true;
+          player2.isTurn = false;
+        }
+      } else if (this.playerCount == 1) {
+        if (player1.isTurn) {
+          while (!isValid) {
+            System.out.println("Pick a valid posiiton (1-9");
+            chosenPosition = Integer.toString(scanner.nextInt());
+            isValid = makeMove(chosenPosition, player1.symbol);
+          }
+          player1.isTurn = false;
+          player2.isTurn = true;
+        } else {
+          while (!isValid) {
+            System.out.println("AI is choosing...");
+            ((AiPlayer) player2).makeMove(this);
+          }
+          player1.isTurn = true;
+          player2.isTurn = false;
+        }
+      }
+    }
   }
 
   public String gameSituation() {
@@ -110,7 +151,7 @@ public class TicTacToe {
 
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 1; j++) {
-        if (ticTacToe[i][j] == ticTacToe[i][j + 1] && ticTacToe[i][j] == ticTacToe[i][j + 2]) {
+        if (ticTacToe[i][j].equals(ticTacToe[i][j + 1]) && ticTacToe[i][j].equals(ticTacToe[i][j + 2])) {
           switch (ticTacToe[i][j]) {
             case "X":
               System.out.println("X has won");
@@ -128,7 +169,7 @@ public class TicTacToe {
     if (result == null) {
       for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 1; j++) {
-          if (ticTacToe[j][i] == ticTacToe[j + 1][i] && ticTacToe[j][i] == ticTacToe[j + 2][i]) {
+          if (ticTacToe[j][i].equals(ticTacToe[j + 1][i]) && ticTacToe[j][i].equals(ticTacToe[j + 2][i])) {
             switch (ticTacToe[j][i]) {
               case "X":
                 System.out.println("X has won");
@@ -146,7 +187,7 @@ public class TicTacToe {
 
     if (result == null) {
       for (int i = 0; i < 1; i++) {
-        if (ticTacToe[i][i] == ticTacToe[i + 1][i + 1] && ticTacToe[i][i] == ticTacToe[i + 2][i + 2]) {
+        if (ticTacToe[i][i].equals(ticTacToe[i + 1][i + 1]) && ticTacToe[i][i].equals(ticTacToe[i + 2][i + 2])) {
           switch (ticTacToe[i][i]) {
             case "X":
               System.out.println("X has won");
@@ -162,7 +203,7 @@ public class TicTacToe {
     }
 
     if (result == null) {
-      if (ticTacToe[0][2] == ticTacToe[1][1] && ticTacToe[2][0] == ticTacToe[0][2]) {
+      if (ticTacToe[0][2].equals(ticTacToe[1][1]) && ticTacToe[2][0].equals(ticTacToe[0][2])) {
         switch (ticTacToe[1][1]) {
           case "X":
             System.out.println("X has won");
@@ -179,7 +220,7 @@ public class TicTacToe {
       int countEmpty = 0;
       for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-          if (ticTacToe[i][j] != "X" || ticTacToe[i][j] != "O") {
+          if (!ticTacToe[i][j].equals("X") && !ticTacToe[i][j].equals("O")) {
             countEmpty++;
             break;
           }
@@ -193,8 +234,4 @@ public class TicTacToe {
     return result;
   }
 
-  public static void main(String[] args) {
-    TicTacToe tic = new TicTacToe();
-
-  }
 }
