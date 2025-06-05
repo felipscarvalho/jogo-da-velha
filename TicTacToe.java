@@ -100,6 +100,99 @@ public class TicTacToe {
 
   }
 
+  public void loopGame() {
+
+  }
+
+  public String gameSituation() {
+
+    String result = null;
+
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 1; j++) {
+        if (ticTacToe[i][j] == ticTacToe[i][j + 1] && ticTacToe[i][j] == ticTacToe[i][j + 2]) {
+          switch (ticTacToe[i][j]) {
+            case "X":
+              System.out.println("X has won");
+              break;
+            case "O":
+              System.out.println("O has won");
+              break;
+          }
+          result = "someoneWon";
+          break;
+        }
+      }
+    }
+
+    if (result == null) {
+      for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 1; j++) {
+          if (ticTacToe[j][i] == ticTacToe[j + 1][i] && ticTacToe[j][i] == ticTacToe[j + 2][i]) {
+            switch (ticTacToe[j][i]) {
+              case "X":
+                System.out.println("X has won");
+                break;
+              case "O":
+                System.out.println("O has won");
+                break;
+            }
+            result = "SomeoneWon";
+            break;
+          }
+        }
+      }
+    }
+
+    if (result == null) {
+      for (int i = 0; i < 1; i++) {
+        if (ticTacToe[i][i] == ticTacToe[i + 1][i + 1] && ticTacToe[i][i] == ticTacToe[i + 2][i + 2]) {
+          switch (ticTacToe[i][i]) {
+            case "X":
+              System.out.println("X has won");
+              break;
+            case "O":
+              System.out.println("O has won");
+              break;
+          }
+          result = "SomeoneWon";
+          break;
+        }
+      }
+    }
+
+    if (result == null) {
+      if (ticTacToe[0][2] == ticTacToe[1][1] && ticTacToe[2][0] == ticTacToe[0][2]) {
+        switch (ticTacToe[1][1]) {
+          case "X":
+            System.out.println("X has won");
+            break;
+          case "O":
+            System.out.println("O has won");
+            break;
+        }
+        result = "someoneWon";
+      }
+    }
+
+    if (result == null) {
+      int countEmpty = 0;
+      for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+          if (ticTacToe[i][j] != "X" || ticTacToe[i][j] != "O") {
+            countEmpty++;
+            break;
+          }
+        }
+      }
+      if (countEmpty == 0) {
+        result = "Draw";
+      }
+    }
+
+    return result;
+  }
+
   public static void main(String[] args) {
     TicTacToe tic = new TicTacToe();
 

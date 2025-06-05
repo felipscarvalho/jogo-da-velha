@@ -13,6 +13,7 @@ public class AiPlayer extends Player {
     String[][] board = game.getBoard();
     Random random = new Random();
     boolean isValid = false;
+    String[] corners = { "1", "3", "7", "9" };
 
     switch (this.difficulty) {
       case "Easy":
@@ -23,6 +24,22 @@ public class AiPlayer extends Player {
         break;
 
       case "Hard":
+        while (!isValid) {
+          String chosenPosition = corners[(random.nextInt(4))];
+          isValid = game.makeMove(chosenPosition, this.symbol);
+
+          if (isValid) {
+            break;
+          }
+
+          isValid = game.makeMove("5", this.symbol);
+
+          if (isValid) {
+            break;
+          }
+
+          isValid = game.makeMove(findBestMove(board, this.symbol), this.symbol);
+        }
 
         break;
     }
