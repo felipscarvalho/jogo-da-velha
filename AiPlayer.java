@@ -24,8 +24,13 @@ public class AiPlayer extends Player {
         return isValid;
 
       case "Hard":
+
+        String enemySymbol = this.symbol.equals("X") ? "0" : "X";
         for (String pos : corners) {
-          if (game.makeMove(pos, this.symbol)) {
+          if (board[0][2].equals(enemySymbol) || board[0][0].equals(enemySymbol) || board[2][2].equals(enemySymbol)
+              || board[2][0].equals(enemySymbol)) {
+            break;
+          } else if (game.makeMove(pos, this.symbol)) {
             isValid = true;
             break;
           }

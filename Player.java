@@ -17,7 +17,7 @@ class Player {
 
     while (symbol == null) {
       System.out.println("Choose your symbol:");
-      System.out.println("1) X \n 2) O");
+      System.out.println("1) X \n2) O");
       System.out.println("Enter 1 or 2:");
       int choice = scanner.nextInt();
 
@@ -26,6 +26,7 @@ class Player {
       } else if (choice == 2) {
         symbol = "O";
       } else {
+        symbol = null;
         System.out.println("Please pick a valid option");
       }
     }

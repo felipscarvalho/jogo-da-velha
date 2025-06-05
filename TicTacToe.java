@@ -51,7 +51,7 @@ public class TicTacToe {
           System.out.printf("%s \n", ticTacToe[i][j]);
         }
       }
-      System.out.print("---------");
+      System.out.print("--------");
       System.out.print("\n");
     }
   }
@@ -130,7 +130,7 @@ public class TicTacToe {
         if (player1.isTurn) {
           isValid = false;
           while (!isValid) {
-            System.out.println("Pick a valid posiiton (1-9)");
+            System.out.println("Pick a valid positon (1-9)");
             chosenPosition = Integer.toString(scanner.nextInt());
             isValid = makeMove(chosenPosition, player1.symbol);
           }
@@ -232,6 +232,7 @@ public class TicTacToe {
       }
       if (countEmpty == 0) {
         result = "Draw";
+        System.out.println("It's a Draw");
       }
     }
 
