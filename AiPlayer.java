@@ -9,7 +9,7 @@ public class AiPlayer extends Player {
     this.difficulty = difficulty;
   }
 
-  public void makeMove(TicTacToe game) {
+  public boolean makeMove(TicTacToe game) {
     String[][] board = game.getBoard();
     Random random = new Random();
     boolean isValid = false;
@@ -21,28 +21,35 @@ public class AiPlayer extends Player {
           String chosenPosition = Integer.toString(random.nextInt(9) + 1);
           isValid = game.makeMove(chosenPosition, this.symbol);
         }
-        break;
+        return isValid;
 
       case "Hard":
-        while (!isValid) {
-          String chosenPosition = corners[(random.nextInt(4))];
-          isValid = game.makeMove(chosenPosition, this.symbol);
-
-          if (isValid) {
+        for (String pos : corners) {
+          if (game.makeMove(pos, this.symbol)) {
+            isValid = true;
             break;
           }
-
-          isValid = game.makeMove("5", this.symbol);
-
-          if (isValid) {
-            break;
-          }
-
-          isValid = game.makeMove(findBestMove(board, this.symbol), this.symbol);
         }
 
-        break;
+        if (!isValid) {
+          isValid = game.makeMove("5", this.symbol);
+        }
+
+        if (!isValid) {
+          String bestMove = findBestMove(board, this.symbol);
+          if (bestMove != null) {
+            isValid = game.makeMove(bestMove, this.symbol);
+          }
+        }
+
+        while (!isValid) {
+          String chosenPosition = Integer.toString(random.nextInt(9) + 1);
+          isValid = game.makeMove(chosenPosition, this.symbol);
+        }
+
+        return isValid;
     }
+    return isValid;
   }
 
   public String findBestMove(String[][] board, String symbol) {

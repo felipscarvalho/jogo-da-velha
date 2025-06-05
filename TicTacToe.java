@@ -108,16 +108,18 @@ public class TicTacToe {
       printTable();
       if (this.playerCount == 2) {
         if (player1.isTurn) {
+          isValid = false;
           while (!isValid) {
-            System.out.println("Pick a valid position (1-9)");
+            System.out.println("Player1: Pick a valid position (1-9)");
             chosenPosition = Integer.toString(scanner.nextInt());
             isValid = makeMove(chosenPosition, player1.symbol);
           }
           player1.isTurn = false;
           player2.isTurn = true;
         } else {
+          isValid = false;
           while (!isValid) {
-            System.out.println("Pick a valid position (1-9)");
+            System.out.println("Player2: Pick a valid position (1-9)");
             chosenPosition = Integer.toString(scanner.nextInt());
             isValid = makeMove(chosenPosition, player2.symbol);
           }
@@ -126,17 +128,19 @@ public class TicTacToe {
         }
       } else if (this.playerCount == 1) {
         if (player1.isTurn) {
+          isValid = false;
           while (!isValid) {
-            System.out.println("Pick a valid posiiton (1-9");
+            System.out.println("Pick a valid posiiton (1-9)");
             chosenPosition = Integer.toString(scanner.nextInt());
             isValid = makeMove(chosenPosition, player1.symbol);
           }
           player1.isTurn = false;
           player2.isTurn = true;
         } else {
+          isValid = false;
           while (!isValid) {
             System.out.println("AI is choosing...");
-            ((AiPlayer) player2).makeMove(this);
+            isValid = ((AiPlayer) player2).makeMove(this);
           }
           player1.isTurn = true;
           player2.isTurn = false;
