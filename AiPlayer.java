@@ -1,3 +1,6 @@
+//Eduardo Curcino Monteiro Filho
+//Felipe Carvalho Leal
+
 import java.util.Random;
 
 public class AiPlayer extends Player {
@@ -26,25 +29,26 @@ public class AiPlayer extends Player {
       case "Hard":
 
         String enemySymbol = this.symbol.equals("X") ? "0" : "X";
-        for (String pos : corners) {
-          if (board[0][2].equals(enemySymbol) || board[0][0].equals(enemySymbol) || board[2][2].equals(enemySymbol)
-              || board[2][0].equals(enemySymbol)) {
-            break;
-          } else if (game.makeMove(pos, this.symbol)) {
-            isValid = true;
-            break;
+
+        String bestMove = findBestMove(board, this.symbol);
+        if (bestMove != null) {
+          isValid = game.makeMove(bestMove, this.symbol);
+        }
+
+        if (!isValid) {
+          for (String pos : corners) {
+            if (board[0][2].equals(enemySymbol) || board[0][0].equals(enemySymbol) || board[2][2].equals(enemySymbol)
+                || board[2][0].equals(enemySymbol)) {
+              break;
+            } else if (game.makeMove(pos, this.symbol)) {
+              isValid = true;
+              break;
+            }
           }
         }
 
         if (!isValid) {
           isValid = game.makeMove("5", this.symbol);
-        }
-
-        if (!isValid) {
-          String bestMove = findBestMove(board, this.symbol);
-          if (bestMove != null) {
-            isValid = game.makeMove(bestMove, this.symbol);
-          }
         }
 
         while (!isValid) {

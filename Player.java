@@ -1,3 +1,6 @@
+//Eduardo Curcino Monteiro Filho
+//Felipe Carvalho Leal
+
 import java.util.Scanner;
 
 class Player {
